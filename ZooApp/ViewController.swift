@@ -29,6 +29,7 @@ class ViewController: UIViewController {
             configuration.environmentTexturing = .automatic
             return configuration
         }
+    var info : [Data] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,8 +53,9 @@ class ViewController: UIViewController {
     func setupARView(){
         newView.automaticallyConfigureSession = false
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.planeDetection = [.horizontal]
         configuration.environmentTexturing = .automatic
+        newView.debugOptions = [.showFeaturePoints]
         newView.session.run(configuration)
     }
     
@@ -88,14 +90,16 @@ class ViewController: UIViewController {
                 print("No map")
                 return
             }
-            do {
+             do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
+                 self.info.append(data)
                 try data.write(to: self.worldMapURL, options: [.atomic])
                 //self.showAlert(message: "Map Saved")
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
         }
+        print(worldMapURL)
     }
     func loadWorldMap(from url: URL) throws -> ARWorldMap {
         let mapData = try Data(contentsOf: url)
@@ -121,6 +125,9 @@ class ViewController: UIViewController {
         let configuration = self.defaultConfiguration
         configuration.initialWorldMap = worldMap
         newView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    @IBAction func resetButton(_sender: Any) {
+        newView.session.run(defaultConfiguration, options: [.resetTracking, .removeExistingAnchors])
     }
 }
 extension ViewController: ARSessionDelegate {
