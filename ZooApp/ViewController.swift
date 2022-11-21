@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var arView: ARView!
     
+    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var LoadWorld: UIButton!
     @IBOutlet weak var newView: ARView!
     @IBOutlet weak var SaveWorld: UIButton!
@@ -117,21 +118,20 @@ class ViewController: UIViewController {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
         }
-        print(worldMapURL)
         entries.append(ZooLookup(name:name, url:worldMapURL))
-        print(entries)
     }
     func loadWorldMap(from url: URL) throws -> ARWorldMap {
         let mapData = try Data(contentsOf: url)
         guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: mapData)
         else { throw ARError(.invalidWorldMap) }
+        
         return worldMap
     }
     var mapDataFromFile: Data? {
         return try? Data(contentsOf: worldMapURL)
     }
     @IBAction func loadButtonAction(_ sender: Any) {
-        
+        debugLabel.text = worldMapURL.absoluteString
     }
     
     func loadARView(url: URL, i: Int){
@@ -178,7 +178,6 @@ extension ViewController: ARSessionDelegate {
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{
             if let anchorName = anchor.name, anchorName == "Cube"{
-                print(anchor)
                 placeObject(named: anchorName, for: anchor)
             }
         }
