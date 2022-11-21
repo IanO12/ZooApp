@@ -26,6 +26,7 @@ class ViewController: UIViewController {
             fatalError("Error getting world map URL from document directory.")
         }
     }()
+    var name: String = ""
     var defaultConfiguration: ARWorldTrackingConfiguration {
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
@@ -35,12 +36,6 @@ class ViewController: UIViewController {
     var info : [Data] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //         Load the "Box" scene from the "Experience" Reality File
-        //        let boxAnchor = try! Experience.loadBox()
-        
-        //         Add the box anchor to the scene
-        //       arView.scene.anchors.append(boxAnchor)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,7 +49,7 @@ class ViewController: UIViewController {
     }
     
     func setupARView(){
-//        newView.automaticallyConfigureSession = false
+        newView.automaticallyConfigureSession = false
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]
         configuration.environmentTexturing = .automatic
@@ -77,16 +72,36 @@ class ViewController: UIViewController {
     func placeObject(named entityName: String, for anchor: ARAnchor){
         let cube = MeshResource.generateBox(size: 0.3)
         let entity = ModelEntity(mesh: cube)
-//        let anchorEntity = AnchorEntity(anchor: anchor)
-//        anchorEntity.addChild(entity)
-//        newView.scene.addAnchor(anchorEntity)
+        let anchorEntity = AnchorEntity(anchor: anchor)
+        anchorEntity.addChild(entity)
+        newView.scene.addAnchor(anchorEntity)
     }
     func writeWorldMap(_ worldMap: ARWorldMap, to url: URL) throws {
         let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
         try data.write(to: url)
     }
     @IBAction func saveButtonAction(_ sender: Any) {
-        print("Working")
+        let alert = UIAlertController(
+            title: "Enter Title",
+            message: "Enter a Title for Your Zoo",
+            preferredStyle: .alert
+        )
+        alert.addTextField { field in
+            field.placeholder = "Name"
+            field.returnKeyType = .continue
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
+        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+            guard let name = alert.textFields![0].text, !name.isEmpty else{
+                return
+            }
+            self.name = name
+            self.saveWordMap()
+        }))
+        present(alert, animated:true)
+
+    }
+    func saveWordMap(){
         newView.session.getCurrentWorldMap { (worldMap, error) in
             guard let worldMap = worldMap else {
                 //self.showAlert(title: "No Map", message: error!.localizedDescription); return
@@ -103,7 +118,8 @@ class ViewController: UIViewController {
             }
         }
         print(worldMapURL)
-        entries.append(ZooLookup(name:"NEW ZOO", url:worldMapURL))
+        entries.append(ZooLookup(name:name, url:worldMapURL))
+        print(entries)
     }
     func loadWorldMap(from url: URL) throws -> ARWorldMap {
         let mapData = try Data(contentsOf: url)
@@ -115,26 +131,29 @@ class ViewController: UIViewController {
         return try? Data(contentsOf: worldMapURL)
     }
     @IBAction func loadButtonAction(_ sender: Any) {
-//        let worldMap: ARWorldMap = {
-//                    guard let data = mapDataFromFile
-//                        else { fatalError("Map data should already be verified to exist before Load button is enabled.") }
-//                    do {
-//                        guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)
-//                            else { fatalError("No ARWorldMap in archive.") }
-//                        return worldMap
-//                    } catch {
-//                        fatalError("Can't unarchive ARWorldMap from file data: \(error)")
-//                    }
-//                }()
-//        let configuration = self.defaultConfiguration
-//        configuration.initialWorldMap = worldMap
-//        newView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
     }
+    
+    func loadARView(url: URL, i: Int){
+        let worldMap: ARWorldMap = {
+            guard let data = try? self.info[i]
+                        else { fatalError("Map data should already be verified to exist before Load button is enabled.") }
+                    do {
+                        guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)
+                            else { fatalError("No ARWorldMap in archive.") }
+                        return worldMap
+                    } catch {
+                        fatalError("Can't unarchive ARWorldMap from file data: \(error)")
+                    }
+                }()
+        let configuration = self.defaultConfiguration
+        configuration.initialWorldMap = worldMap
+        newView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
     @IBAction func resetButton(_sender: Any) {
         newView.session.run(defaultConfiguration, options: [.resetTracking, .removeExistingAnchors])
     }
-    
-    
     
     
     
@@ -143,11 +162,18 @@ class ViewController: UIViewController {
         if segue.identifier == "historySegue" {
             if let dest = segue.destination as? HistoryTableViewController {
                 dest.entries = self.entries
-//                dest.historyDelegate = self
+                dest.historyDelegate = self
             }
         }
     }
 }
+
+extension ViewController : HistoryTableViewControllerDelegate{
+    func selectEntry(entry: ZooLookup, index: Int) {
+        loadARView(url: entry.url, i: index)
+    }
+}
+
 extension ViewController: ARSessionDelegate {
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{

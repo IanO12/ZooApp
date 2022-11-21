@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 protocol HistoryTableViewControllerDelegate{
-    func selectEntry(entry: ZooLookup)
+    func selectEntry(entry: ZooLookup, index: Int)
 }
 
 class HistoryTableViewController: UITableViewController{
@@ -28,11 +28,15 @@ class HistoryTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let del = self.historyDelegate{
+            del.selectEntry(entry: entries[indexPath.row], index: indexPath.row)
+        }
+        self.dismiss(animated: true)
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! HistoryTableViewCell
-
-        cell.cellContent?.text = "HELLLOO"
-        
+        cell.cellContent?.text = entries[indexPath.row].name
         return cell
     }
 }

@@ -21,23 +21,32 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" id="f9C-9l-1Xy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellId" id="f9C-9l-1Xy" customClass="HistoryTableViewCell" customModule="ZooApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9C-9l-1Xy" id="3xd-b7-OxH">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-KN-lce">
-                                            <rect key="frame" x="186" y="11" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-KN-lce">
+                                            <rect key="frame" x="20" y="11" width="355.5" height="21.5"/>
                                             <accessibility key="accessibilityConfiguration" identifier="cellContent"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MLh-KN-lce" firstAttribute="centerY" secondItem="3xd-b7-OxH" secondAttribute="centerY" id="C1j-Ei-dnd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="MLh-KN-lce" secondAttribute="trailing" id="HIJ-Lf-RhB"/>
+                                        <constraint firstItem="MLh-KN-lce" firstAttribute="top" secondItem="3xd-b7-OxH" secondAttribute="topMargin" id="aVc-uh-DMY"/>
+                                        <constraint firstItem="MLh-KN-lce" firstAttribute="leading" secondItem="3xd-b7-OxH" secondAttribute="leadingMargin" id="kof-4x-rI0"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="cellId"/>
+                                <connections>
+                                    <outlet property="cellContent" destination="MLh-KN-lce" id="cYN-oE-RiN"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -48,7 +57,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrb-g9-BKK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="-45"/>
+            <point key="canvasLocation" x="-171.01449275362319" y="-45.535714285714285"/>
         </scene>
         <!--ARView-->
         <scene sceneID="tne-QT-ifu">
@@ -76,7 +85,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Load World"/>
                                 <connections>
                                     <action selector="loadButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f5D-2h-Cjq"/>
-                                    <segue destination="tsm-26-EEa" kind="presentation" identifier="historySegue" id="8RI-0A-vBw"/>
+                                    <segue destination="tsm-26-EEa" kind="presentation" identifier="historySegue" id="KAw-Fb-2C9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdJ-KU-6EI">
@@ -109,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1586" y="-23"/>
+            <point key="canvasLocation" x="-1132" y="-46"/>
         </scene>
     </scenes>
     <resources>
