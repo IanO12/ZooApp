@@ -9,10 +9,10 @@ import Foundation
 
 struct ZooLookup{
     var name: String
-    var url: URL
+    var data: Data
     
-    init(name:String, url:URL){
+    init(name:String, data: Data){
         self.name = name
-        self.url = url
+        self.data = data
     }
 }

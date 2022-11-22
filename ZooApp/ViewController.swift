@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var SaveWorld: UIButton!
     
     var entries : [ZooLookup] = []
+    var info : [Data] = []
+    var defualts = UserDefaults.standard
     
     var worldMapURL: URL = {
         do {
@@ -27,6 +29,7 @@ class ViewController: UIViewController {
             fatalError("Error getting world map URL from document directory.")
         }
     }()
+
     var name: String = ""
     var defaultConfiguration: ARWorldTrackingConfiguration {
             let configuration = ARWorldTrackingConfiguration()
@@ -34,9 +37,24 @@ class ViewController: UIViewController {
             configuration.environmentTexturing = .automatic
             return configuration
         }
-    var info : [Data] = []
+    
+    
+    @IBOutlet weak var deleteMaps: UIButton!
+    @IBAction func deleteMapsAction(_ sender: Any) {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(defualts.array(forKey: "Maps") != nil){
+            debugLabel.text = "THIS WORKED"
+            info = defualts.array(forKey:"Maps") as! [Data]
+            for i in info{
+                entries.append(ZooLookup(name:"Something", data: i))
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,10 +95,10 @@ class ViewController: UIViewController {
         anchorEntity.addChild(entity)
         newView.scene.addAnchor(anchorEntity)
     }
-    func writeWorldMap(_ worldMap: ARWorldMap, to url: URL) throws {
-        let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
-        try data.write(to: url)
-    }
+//    func writeWorldMap(_ worldMap: ARWorldMap, to url: URL) throws {
+//        let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
+//        try data.write(to: url)
+//    }
     @IBAction func saveButtonAction(_ sender: Any) {
         let alert = UIAlertController(
             title: "Enter Title",
@@ -97,12 +115,11 @@ class ViewController: UIViewController {
                 return
             }
             self.name = name
-            self.saveWordMap()
+            self.saveWorldMap()
         }))
         present(alert, animated:true)
-
     }
-    func saveWordMap(){
+    func saveWorldMap(){
         newView.session.getCurrentWorldMap { (worldMap, error) in
             guard let worldMap = worldMap else {
                 //self.showAlert(title: "No Map", message: error!.localizedDescription); return
@@ -111,20 +128,26 @@ class ViewController: UIViewController {
             }
              do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
+                 try data.write(to: self.worldMapURL, options: [.atomic])
                  self.info.append(data)
-                try data.write(to: self.worldMapURL, options: [.atomic])
+                 self.defualts.set(self.info, forKey: "Maps")
                 //self.showAlert(message: "Map Saved")
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
         }
-        entries.append(ZooLookup(name:name, url:worldMapURL))
+        var data: Data? {
+            return try? Data(contentsOf: worldMapURL)
+        }
+        entries.append(ZooLookup(name:name, data: data!))
     }
     func loadWorldMap(from url: URL) throws -> ARWorldMap {
         let mapData = try Data(contentsOf: url)
         guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: mapData)
         else { throw ARError(.invalidWorldMap) }
-        
+        let configuration = self.defaultConfiguration
+        configuration.initialWorldMap = worldMap
+        newView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         return worldMap
     }
     var mapDataFromFile: Data? {
@@ -132,11 +155,13 @@ class ViewController: UIViewController {
     }
     @IBAction func loadButtonAction(_ sender: Any) {
         debugLabel.text = worldMapURL.absoluteString
+        print(debugLabel.text)
+        debugLabel.text = String(info.count)
     }
     
-    func loadARView(url: URL, i: Int){
+    func loadARView(data: Data, i: Int){
         let worldMap: ARWorldMap = {
-            guard let data = try? self.info[i]
+            guard let data = try? data
                         else { fatalError("Map data should already be verified to exist before Load button is enabled.") }
                     do {
                         guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)
@@ -170,7 +195,7 @@ class ViewController: UIViewController {
 
 extension ViewController : HistoryTableViewControllerDelegate{
     func selectEntry(entry: ZooLookup, index: Int) {
-        loadARView(url: entry.url, i: index)
+        loadARView(data: entry.data, i: index)
     }
 }
 
