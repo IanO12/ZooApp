@@ -19,7 +19,9 @@ class ViewController: UIViewController {
     
     var entries : [ZooLookup] = []
     var info : [Data] = []
+    var infoName : [String] = []
     var defualts = UserDefaults.standard
+    var animal = "Emu_animation"
     
     var worldMapURL: URL = {
         do {
@@ -32,27 +34,38 @@ class ViewController: UIViewController {
 
     var name: String = ""
     var defaultConfiguration: ARWorldTrackingConfiguration {
-            let configuration = ARWorldTrackingConfiguration()
-            configuration.planeDetection = .horizontal
-            configuration.environmentTexturing = .automatic
-            return configuration
-        }
-    
-    
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        configuration.environmentTexturing = .automatic
+        return configuration
+    }
+
     @IBOutlet weak var deleteMaps: UIButton!
     @IBAction func deleteMapsAction(_ sender: Any) {
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
+        entries = []
+        debugLabel.text = String(info.count)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(defualts.array(forKey: "Maps") != nil){
-            debugLabel.text = "THIS WORKED"
+        print(worldMapURL)
+        if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
             info = defualts.array(forKey:"Maps") as! [Data]
-            for i in info{
-                entries.append(ZooLookup(name:"Something", data: i))
+            infoName = defualts.array(forKey:"Names") as! [String]
+            debugLabel.text = String(info.count)
+            if info.count != infoName.count{
+                print("ERROR DATA COUNT != NAME COUNT")
+            }
+            else if info.count < 1{
+                print("LIST TOO SMALL")
+            }else{
+                for i in 0...info.count - 1{
+                    print(i)
+                    entries.append(ZooLookup(name:infoName[i], data: info[i]))
+                }
             }
         }
     }
@@ -81,7 +94,7 @@ class ViewController: UIViewController {
         let location = recognizer.location(in: newView)
         let results = newView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.first{
-            let anchor = ARAnchor(name: "Cube", transform: firstResult.worldTransform)
+            let anchor = ARAnchor(name: animal, transform: firstResult.worldTransform)
             newView.session.add(anchor: anchor)
         } else{
             print("Object Placement Failed")
@@ -89,11 +102,16 @@ class ViewController: UIViewController {
     }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){
-        let cube = MeshResource.generateBox(size: 0.3)
-        let entity = ModelEntity(mesh: cube)
-        let anchorEntity = AnchorEntity(anchor: anchor)
-        anchorEntity.addChild(entity)
-        newView.scene.addAnchor(anchorEntity)
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource:animal, ofType: "usdz")!)
+        if let entity = try? Entity.load(contentsOf: url){
+            let anchorEntity = AnchorEntity(anchor: anchor)
+            anchorEntity.addChild(entity)
+            newView.scene.addAnchor(anchorEntity)
+            entity.playAnimation(entity.availableAnimations[0].repeat())
+        }else{
+            print("Couldn't find model")
+        }
+        
     }
 //    func writeWorldMap(_ worldMap: ARWorldMap, to url: URL) throws {
 //        let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
@@ -130,16 +148,16 @@ class ViewController: UIViewController {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
                  try data.write(to: self.worldMapURL, options: [.atomic])
                  self.info.append(data)
+                 self.infoName.append(self.name)
                  self.defualts.set(self.info, forKey: "Maps")
+                 self.defualts.set(self.infoName, forKey: "Names")
+                 self.entries.append(ZooLookup(name:self.name, data: data))
+                 self.debugLabel.text = String(self.info.count)
                 //self.showAlert(message: "Map Saved")
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
         }
-        var data: Data? {
-            return try? Data(contentsOf: worldMapURL)
-        }
-        entries.append(ZooLookup(name:name, data: data!))
     }
     func loadWorldMap(from url: URL) throws -> ARWorldMap {
         let mapData = try Data(contentsOf: url)
@@ -154,9 +172,7 @@ class ViewController: UIViewController {
         return try? Data(contentsOf: worldMapURL)
     }
     @IBAction func loadButtonAction(_ sender: Any) {
-        debugLabel.text = worldMapURL.absoluteString
-        print(debugLabel.text)
-        debugLabel.text = String(info.count)
+
     }
     
     func loadARView(data: Data, i: Int){
@@ -180,9 +196,6 @@ class ViewController: UIViewController {
         newView.session.run(defaultConfiguration, options: [.resetTracking, .removeExistingAnchors])
     }
     
-    
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "historySegue" {
             if let dest = segue.destination as? HistoryTableViewController {
@@ -202,7 +215,7 @@ extension ViewController : HistoryTableViewControllerDelegate{
 extension ViewController: ARSessionDelegate {
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{
-            if let anchorName = anchor.name, anchorName == "Cube"{
+            if let anchorName = anchor.name{
                 placeObject(named: anchorName, for: anchor)
             }
         }
