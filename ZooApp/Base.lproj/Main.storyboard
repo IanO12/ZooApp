@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
-                            <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="122" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
@@ -67,9 +67,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <arView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BJz-0d-AeJ">
-                                <rect key="frame" x="-11" y="0.0" width="425" height="889"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJz-0d-AeJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOf-qx-yjX">
                                 <rect key="frame" x="49" y="811" width="110" height="35"/>
@@ -102,10 +101,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoy-Xx-l2v">
-                                <rect key="frame" x="41" y="58" width="75" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoy-Xx-l2v">
+                                <rect key="frame" x="41" y="58" width="118" height="56"/>
+                                <accessibility key="accessibilityConfiguration" label="Delete Maps"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Delete Maps"/>
                                 <connections>
                                     <action selector="deleteMapsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pVD-wd-LZY"/>
                                 </connections>
@@ -120,11 +120,15 @@
                             <constraint firstItem="uUN-g4-1Qm" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leadingMargin" id="9hW-QX-N9T"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" secondItem="MdJ-KU-6EI" secondAttribute="trailing" constant="54" id="Bqj-wd-ked"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" secondItem="Vfj-kd-x0G" secondAttribute="trailing" constant="51" id="JrB-rL-FF7"/>
+                            <constraint firstAttribute="bottom" secondItem="BJz-0d-AeJ" secondAttribute="bottom" id="WD6-Cl-sJ4"/>
                             <constraint firstItem="MdJ-KU-6EI" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="Z3u-0Q-eSv"/>
                             <constraint firstItem="yoy-Xx-l2v" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="bIR-xf-adX"/>
                             <constraint firstItem="lOf-qx-yjX" firstAttribute="leading" secondItem="ONC-wB-QaB" secondAttribute="leading" constant="49" id="e75-Ux-icU"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="bottom" secondItem="lOf-qx-yjX" secondAttribute="bottom" constant="16" id="gt6-zZ-APD"/>
                             <constraint firstItem="yoy-Xx-l2v" firstAttribute="leading" secondItem="ONC-wB-QaB" secondAttribute="leading" constant="41" id="hxd-Og-yja"/>
+                            <constraint firstItem="BJz-0d-AeJ" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leading" id="jin-Np-f1Z"/>
+                            <constraint firstItem="BJz-0d-AeJ" firstAttribute="trailing" secondItem="ONC-wB-QaB" secondAttribute="trailing" id="m40-VH-PPq"/>
+                            <constraint firstItem="BJz-0d-AeJ" firstAttribute="top" secondItem="nx6-Cd-cWU" secondAttribute="top" id="s8E-SD-9ID"/>
                             <constraint firstItem="uUN-g4-1Qm" firstAttribute="top" secondItem="nx6-Cd-cWU" secondAttribute="top" constant="356" id="vOK-m8-T1n"/>
                         </constraints>
                     </view>

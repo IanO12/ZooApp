@@ -2,7 +2,7 @@
 //  ZooLookup.swift
 //  ZooApp
 //
-//  Created by Krin Beach on 11/20/22.
+//  Created by Ian O'Strander on 11/20/22.
 //
 
 import Foundation

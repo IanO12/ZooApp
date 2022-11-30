@@ -17,12 +17,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var newView: ARView!
     @IBOutlet weak var SaveWorld: UIButton!
     
+    var currentIndex = 0
     var entries : [ZooLookup] = []
     var info : [Data] = []
     var infoName : [String] = []
     var defualts = UserDefaults.standard
-    var animal = "Emu_animation"
-    
+//    var animal = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
+    var animal = "gorilla"
     var worldMapURL: URL = {
         do {
             return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -95,6 +96,7 @@ class ViewController: UIViewController {
         let results = newView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.first{
             let anchor = ARAnchor(name: animal, transform: firstResult.worldTransform)
+            print("ADDED ANCHOR")
             newView.session.add(anchor: anchor)
         } else{
             print("Object Placement Failed")
@@ -113,10 +115,6 @@ class ViewController: UIViewController {
         }
         
     }
-//    func writeWorldMap(_ worldMap: ARWorldMap, to url: URL) throws {
-//        let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
-//        try data.write(to: url)
-//    }
     @IBAction func saveButtonAction(_ sender: Any) {
         let alert = UIAlertController(
             title: "Enter Title",
@@ -210,10 +208,18 @@ extension ViewController : HistoryTableViewControllerDelegate{
     func selectEntry(entry: ZooLookup, index: Int) {
         loadARView(data: entry.data, i: index)
     }
+    func deleteData(index: Int){
+        info.remove(at: index)
+        infoName.remove(at: index)
+        entries.remove(at:index)
+        defualts.set(self.info, forKey: "Maps")
+        defualts.set(self.infoName, forKey: "Names")
+    }
 }
 
 extension ViewController: ARSessionDelegate {
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        print("anchors = \(anchors.count)")
         for anchor in anchors{
             if let anchorName = anchor.name{
                 placeObject(named: anchorName, for: anchor)

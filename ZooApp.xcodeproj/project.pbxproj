@@ -16,14 +16,15 @@
 		12B3E2C129259AA40082D9C0 /* ZooAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B3E2C029259AA40082D9C0 /* ZooAppTests.swift */; };
 		12B3E2CB29259AA50082D9C0 /* ZooAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B3E2CA29259AA50082D9C0 /* ZooAppUITests.swift */; };
 		12B3E2CD29259AA50082D9C0 /* ZooAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B3E2CC29259AA50082D9C0 /* ZooAppUITestsLaunchTests.swift */; };
-		12D898372936BD2800E26E46 /* tiger_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898362936BD2800E26E46 /* tiger_animation.usdz */; };
-		12D898392936C87700E26E46 /* Alligator_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898382936C87700E26E46 /* Alligator_animation.usdz */; };
-		12D8983B2936C8B100E26E46 /* Elephant_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8983A2936C8B100E26E46 /* Elephant_animation.usdz */; };
-		12D8983D2936C8F900E26E46 /* Jaguar_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8983C2936C8F900E26E46 /* Jaguar_animation.usdz */; };
-		12D8983F2936C95C00E26E46 /* Gorilla_idle_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8983E2936C95C00E26E46 /* Gorilla_idle_animation.usdz */; };
-		12D898412936C99400E26E46 /* zebra_idle_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898402936C99400E26E46 /* zebra_idle_animation.usdz */; };
-		12D898432936CA1300E26E46 /* Snake_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898422936CA1300E26E46 /* Snake_animation.usdz */; };
-		12D898452936CA9D00E26E46 /* Emu_animation.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898442936CA9D00E26E46 /* Emu_animation.usdz */; };
+		12D898732936DE8D00E26E46 /* kangaroo.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986A2936DE8C00E26E46 /* kangaroo.usdz */; };
+		12D898742936DE8D00E26E46 /* tiger.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986B2936DE8C00E26E46 /* tiger.usdz */; };
+		12D898752936DE8D00E26E46 /* elephant.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986C2936DE8C00E26E46 /* elephant.usdz */; };
+		12D898762936DE8D00E26E46 /* gorilla.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986D2936DE8C00E26E46 /* gorilla.usdz */; };
+		12D898772936DE8D00E26E46 /* snake.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986E2936DE8C00E26E46 /* snake.usdz */; };
+		12D898782936DE8D00E26E46 /* alligator.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D8986F2936DE8D00E26E46 /* alligator.usdz */; };
+		12D898792936DE8D00E26E46 /* jaguar.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898702936DE8D00E26E46 /* jaguar.usdz */; };
+		12D8987A2936DE8D00E26E46 /* zebra.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898712936DE8D00E26E46 /* zebra.usdz */; };
+		12D8987B2936DE8D00E26E46 /* emu.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 12D898722936DE8D00E26E46 /* emu.usdz */; };
 		81996DC3292AC2C000407204 /* ZooLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81996DC2292AC2C000407204 /* ZooLookup.swift */; };
 		81996DC5292AC42500407204 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81996DC4292AC42500407204 /* HistoryTableViewController.swift */; };
 		81996DC7292AD03700407204 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81996DC6292AD03700407204 /* HistoryTableViewCell.swift */; };
@@ -59,14 +60,15 @@
 		12B3E2C629259AA50082D9C0 /* ZooAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZooAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12B3E2CA29259AA50082D9C0 /* ZooAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZooAppUITests.swift; sourceTree = "<group>"; };
 		12B3E2CC29259AA50082D9C0 /* ZooAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZooAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		12D898362936BD2800E26E46 /* tiger_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = tiger_animation.usdz; path = ../../../../Downloads/tiger_animation.usdz; sourceTree = "<group>"; };
-		12D898382936C87700E26E46 /* Alligator_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Alligator_animation.usdz; path = ../../../../Downloads/Alligator_animation.usdz; sourceTree = "<group>"; };
-		12D8983A2936C8B100E26E46 /* Elephant_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Elephant_animation.usdz; path = ../../../../Downloads/Elephant_animation.usdz; sourceTree = "<group>"; };
-		12D8983C2936C8F900E26E46 /* Jaguar_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Jaguar_animation.usdz; path = ../../../../Downloads/Jaguar_animation.usdz; sourceTree = "<group>"; };
-		12D8983E2936C95C00E26E46 /* Gorilla_idle_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Gorilla_idle_animation.usdz; path = ../../../../Downloads/Gorilla_idle_animation.usdz; sourceTree = "<group>"; };
-		12D898402936C99400E26E46 /* zebra_idle_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = zebra_idle_animation.usdz; path = ../../../../Downloads/zebra_idle_animation.usdz; sourceTree = "<group>"; };
-		12D898422936CA1300E26E46 /* Snake_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Snake_animation.usdz; path = ../../../../Downloads/Snake_animation.usdz; sourceTree = "<group>"; };
-		12D898442936CA9D00E26E46 /* Emu_animation.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Emu_animation.usdz; path = ../../../../Downloads/Emu_animation.usdz; sourceTree = "<group>"; };
+		12D8986A2936DE8C00E26E46 /* kangaroo.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = kangaroo.usdz; sourceTree = "<group>"; };
+		12D8986B2936DE8C00E26E46 /* tiger.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = tiger.usdz; path = ../../../../Downloads/tiger.usdz; sourceTree = "<group>"; };
+		12D8986C2936DE8C00E26E46 /* elephant.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = elephant.usdz; sourceTree = "<group>"; };
+		12D8986D2936DE8C00E26E46 /* gorilla.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gorilla.usdz; sourceTree = "<group>"; };
+		12D8986E2936DE8C00E26E46 /* snake.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = snake.usdz; sourceTree = "<group>"; };
+		12D8986F2936DE8D00E26E46 /* alligator.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = alligator.usdz; sourceTree = "<group>"; };
+		12D898702936DE8D00E26E46 /* jaguar.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = jaguar.usdz; sourceTree = "<group>"; };
+		12D898712936DE8D00E26E46 /* zebra.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = zebra.usdz; sourceTree = "<group>"; };
+		12D898722936DE8D00E26E46 /* emu.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = emu.usdz; sourceTree = "<group>"; };
 		81996DC2292AC2C000407204 /* ZooLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZooLookup.swift; sourceTree = "<group>"; };
 		81996DC4292AC42500407204 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		81996DC6292AD03700407204 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -154,14 +156,15 @@
 		12D898352936BCFC00E26E46 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				12D898442936CA9D00E26E46 /* Emu_animation.usdz */,
-				12D898422936CA1300E26E46 /* Snake_animation.usdz */,
-				12D898402936C99400E26E46 /* zebra_idle_animation.usdz */,
-				12D8983E2936C95C00E26E46 /* Gorilla_idle_animation.usdz */,
-				12D8983C2936C8F900E26E46 /* Jaguar_animation.usdz */,
-				12D8983A2936C8B100E26E46 /* Elephant_animation.usdz */,
-				12D898382936C87700E26E46 /* Alligator_animation.usdz */,
-				12D898362936BD2800E26E46 /* tiger_animation.usdz */,
+				12D8986F2936DE8D00E26E46 /* alligator.usdz */,
+				12D8986C2936DE8C00E26E46 /* elephant.usdz */,
+				12D898722936DE8D00E26E46 /* emu.usdz */,
+				12D8986D2936DE8C00E26E46 /* gorilla.usdz */,
+				12D898702936DE8D00E26E46 /* jaguar.usdz */,
+				12D8986A2936DE8C00E26E46 /* kangaroo.usdz */,
+				12D8986E2936DE8C00E26E46 /* snake.usdz */,
+				12D8986B2936DE8C00E26E46 /* tiger.usdz */,
+				12D898712936DE8D00E26E46 /* zebra.usdz */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,17 +273,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12D898772936DE8D00E26E46 /* snake.usdz in Resources */,
 				12B3E2B729259AA40082D9C0 /* LaunchScreen.storyboard in Resources */,
-				12D898392936C87700E26E46 /* Alligator_animation.usdz in Resources */,
 				12B3E2B429259AA40082D9C0 /* Assets.xcassets in Resources */,
-				12D8983D2936C8F900E26E46 /* Jaguar_animation.usdz in Resources */,
-				12D898452936CA9D00E26E46 /* Emu_animation.usdz in Resources */,
-				12D898412936C99400E26E46 /* zebra_idle_animation.usdz in Resources */,
-				12D8983B2936C8B100E26E46 /* Elephant_animation.usdz in Resources */,
-				12D8983F2936C95C00E26E46 /* Gorilla_idle_animation.usdz in Resources */,
-				12D898432936CA1300E26E46 /* Snake_animation.usdz in Resources */,
-				12D898372936BD2800E26E46 /* tiger_animation.usdz in Resources */,
+				12D898752936DE8D00E26E46 /* elephant.usdz in Resources */,
+				12D8987A2936DE8D00E26E46 /* zebra.usdz in Resources */,
+				12D898762936DE8D00E26E46 /* gorilla.usdz in Resources */,
 				12B3E2B229259AA20082D9C0 /* Main.storyboard in Resources */,
+				12D898742936DE8D00E26E46 /* tiger.usdz in Resources */,
+				12D898782936DE8D00E26E46 /* alligator.usdz in Resources */,
+				12D898732936DE8D00E26E46 /* kangaroo.usdz in Resources */,
+				12D898792936DE8D00E26E46 /* jaguar.usdz in Resources */,
+				12D8987B2936DE8D00E26E46 /* emu.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

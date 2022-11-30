@@ -2,7 +2,7 @@
 //  HistoryTableViewController.swift
 //  ZooApp
 //
-//  Created by Krin Beach on 11/20/22.
+//  Created by Ian O'Strander on 11/20/22.
 //
 
 import UIKit
@@ -10,6 +10,7 @@ import Foundation
 
 protocol HistoryTableViewControllerDelegate{
     func selectEntry(entry: ZooLookup, index: Int)
+    func deleteData(index:Int)
 }
 
 class HistoryTableViewController: UITableViewController{
@@ -38,5 +39,19 @@ class HistoryTableViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! HistoryTableViewCell
         cell.cellContent?.text = entries[indexPath.row].name
         return cell
+    }
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle{
+        return .delete
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
+        if editingStyle == .delete{
+            tableView.beginUpdates()
+            entries.remove(at: indexPath.row)
+            if let del = self.historyDelegate{
+                del.deleteData(index: indexPath.row)
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
     }
 }
