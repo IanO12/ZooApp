@@ -8,21 +8,38 @@
 import UIKit
 import RealityKit
 import ARKit
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.pickerData.count
+    }
+    func pickerView(_pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return self.pickerData[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        <#code#>
+    }
+    
     
     @IBOutlet var arView: ARView!
     
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var LoadWorld: UIButton!
     @IBOutlet weak var newView: ARView!
+    @IBOutlet weak var animalPicker: UIPickerView!
     @IBOutlet weak var SaveWorld: UIButton!
-    
+    @IBOutlet weak var newAnimal: UIButton!
+    var pickerData: [String] = [String]()
     var currentIndex = 0
     var entries : [ZooLookup] = []
     var info : [Data] = []
     var infoName : [String] = []
     var defualts = UserDefaults.standard
-//    var animal = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
+    //var chocieAnimal = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
     var animal = "gorilla"
     var worldMapURL: URL = {
         do {
@@ -50,8 +67,22 @@ class ViewController: UIViewController {
         debugLabel.text = String(info.count)
     }
     
+    @IBAction func pickAnimalAction(_sender: Any) {
+        if animalPicker.isHidden{
+            self.animalPicker.isHidden = false
+            self.pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
+            self.animalPicker.reloadAllComponents()
+        }else{
+            self.animalPicker.isHidden = true
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.animalPicker.isHidden = true
+        self.animalPicker.delegate = self
+        self.animalPicker.dataSource = self
         print(worldMapURL)
         if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
             info = defualts.array(forKey:"Maps") as! [Data]
@@ -69,6 +100,7 @@ class ViewController: UIViewController {
                 }
             }
         }
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,6 +133,9 @@ class ViewController: UIViewController {
         } else{
             print("Object Placement Failed")
         }
+    }
+    @objc func hidePicker(sender: UIGestureRecognizer) {
+        self.animalPicker.isHidden = true
     }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){

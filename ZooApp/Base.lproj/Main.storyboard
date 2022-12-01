@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
-                            <rect key="frame" x="0.0" y="122" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="121" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellId" id="f9C-9l-1Xy" customClass="HistoryTableViewCell" customModule="ZooApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9C-9l-1Xy" id="3xd-b7-OxH">
-                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-KN-lce">
-                                            <rect key="frame" x="20" y="11" width="355.5" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="355.5" height="21"/>
                                             <accessibility key="accessibilityConfiguration" identifier="cellContent"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -110,6 +110,19 @@
                                     <action selector="deleteMapsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pVD-wd-LZY"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="animalPicker" translatesAutoresizingMaskIntoConstraints="NO" id="4yZ-F1-0Y1">
+                                <rect key="frame" x="-8" y="412" width="414" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7Q-MM-cfX">
+                                <rect key="frame" x="288" y="164" width="76" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Animal"/>
+                                <connections>
+                                    <action selector="pickAnimalActionWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ISK-m6-W6P"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ONC-wB-QaB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -135,9 +148,11 @@
                     <connections>
                         <outlet property="LoadWorld" destination="Vfj-kd-x0G" id="XSr-DX-mvW"/>
                         <outlet property="SaveWorld" destination="lOf-qx-yjX" id="X6H-mt-XJR"/>
+                        <outlet property="animalPicker" destination="4yZ-F1-0Y1" id="Kk0-w2-FIO"/>
                         <outlet property="arView" destination="BJz-0d-AeJ" id="HrI-lU-UIR"/>
                         <outlet property="debugLabel" destination="uUN-g4-1Qm" id="QoT-Xt-tHo"/>
                         <outlet property="deleteMaps" destination="yoy-Xx-l2v" id="mU7-OS-QVq"/>
+                        <outlet property="newAnimal" destination="p7Q-MM-cfX" id="Khl-Nb-ftV"/>
                         <outlet property="newView" destination="BJz-0d-AeJ" id="J7V-jB-VLs"/>
                     </connections>
                 </viewController>
