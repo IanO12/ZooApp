@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
-                            <rect key="frame" x="0.0" y="121" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellId" id="f9C-9l-1Xy" customClass="HistoryTableViewCell" customModule="ZooApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="414" height="43"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9C-9l-1Xy" id="3xd-b7-OxH">
-                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-KN-lce">
-                                            <rect key="frame" x="20" y="11" width="355.5" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="355.5" height="21.5"/>
                                             <accessibility key="accessibilityConfiguration" identifier="cellContent"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -87,7 +87,7 @@
                                     <segue destination="tsm-26-EEa" kind="presentation" identifier="historySegue" id="KAw-Fb-2C9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdJ-KU-6EI">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdJ-KU-6EI">
                                 <rect key="frame" x="292" y="58" width="68" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Reset"/>
@@ -101,8 +101,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoy-Xx-l2v">
-                                <rect key="frame" x="41" y="58" width="118" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoy-Xx-l2v">
+                                <rect key="frame" x="41" y="58" width="119.5" height="34.5"/>
                                 <accessibility key="accessibilityConfiguration" label="Delete Maps"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Delete Maps"/>
@@ -110,17 +110,35 @@
                                     <action selector="deleteMapsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pVD-wd-LZY"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="animalPicker" translatesAutoresizingMaskIntoConstraints="NO" id="4yZ-F1-0Y1">
-                                <rect key="frame" x="-8" y="412" width="414" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" restorationIdentifier="animalPicker" translatesAutoresizingMaskIntoConstraints="NO" id="4yZ-F1-0Y1">
+                                <rect key="frame" x="-8" y="412" width="480" height="162"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="dd7-5o-HYC"/>
+                                </constraints>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7Q-MM-cfX">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7Q-MM-cfX">
                                 <rect key="frame" x="288" y="164" width="76" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Animal"/>
                                 <connections>
                                     <action selector="pickAnimalActionWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ISK-m6-W6P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWc-N0-Nph">
+                                <rect key="frame" x="166" y="79" width="103" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Edit World"/>
+                                <connections>
+                                    <action selector="editWorldActionWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bzN-n1-dI6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUZ-qN-MUB">
+                                <rect key="frame" x="254" y="760" width="110" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="View World"/>
+                                <connections>
+                                    <action selector="viewWorldActionWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4fm-Cc-vWR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -131,17 +149,28 @@
                             <constraint firstItem="Vfj-kd-x0G" firstAttribute="baseline" secondItem="lOf-qx-yjX" secondAttribute="baseline" id="6x2-nA-eUh"/>
                             <constraint firstItem="Vfj-kd-x0G" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lOf-qx-yjX" secondAttribute="trailing" constant="8" symbolic="YES" id="9bT-B2-Mmg"/>
                             <constraint firstItem="uUN-g4-1Qm" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leadingMargin" id="9hW-QX-N9T"/>
-                            <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" secondItem="MdJ-KU-6EI" secondAttribute="trailing" constant="54" id="Bqj-wd-ked"/>
+                            <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MdJ-KU-6EI" secondAttribute="trailing" id="Bqj-wd-ked"/>
+                            <constraint firstItem="mUZ-qN-MUB" firstAttribute="centerX" secondItem="4yZ-F1-0Y1" secondAttribute="centerX" constant="77" id="CWx-uD-Foh"/>
+                            <constraint firstItem="4yZ-F1-0Y1" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leadingMargin" constant="-28" id="FYx-Qy-DMD"/>
+                            <constraint firstItem="p7Q-MM-cfX" firstAttribute="top" secondItem="MdJ-KU-6EI" secondAttribute="bottom" constant="71" id="GCo-Qm-cME"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" secondItem="Vfj-kd-x0G" secondAttribute="trailing" constant="51" id="JrB-rL-FF7"/>
                             <constraint firstAttribute="bottom" secondItem="BJz-0d-AeJ" secondAttribute="bottom" id="WD6-Cl-sJ4"/>
+                            <constraint firstItem="p7Q-MM-cfX" firstAttribute="centerX" secondItem="MdJ-KU-6EI" secondAttribute="centerX" id="Z2r-8T-ZW7"/>
                             <constraint firstItem="MdJ-KU-6EI" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="Z3u-0Q-eSv"/>
                             <constraint firstItem="yoy-Xx-l2v" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="bIR-xf-adX"/>
+                            <constraint firstItem="4yZ-F1-0Y1" firstAttribute="top" secondItem="uUN-g4-1Qm" secondAttribute="bottom" constant="35.5" id="cD1-X0-VzJ"/>
+                            <constraint firstItem="mUZ-qN-MUB" firstAttribute="leading" secondItem="lOf-qx-yjX" secondAttribute="trailing" constant="95" id="dix-6X-dUV"/>
+                            <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uUN-g4-1Qm" secondAttribute="trailing" symbolic="YES" id="dmQ-I5-326"/>
                             <constraint firstItem="lOf-qx-yjX" firstAttribute="leading" secondItem="ONC-wB-QaB" secondAttribute="leading" constant="49" id="e75-Ux-icU"/>
+                            <constraint firstItem="ONC-wB-QaB" firstAttribute="bottom" secondItem="mUZ-qN-MUB" secondAttribute="bottom" constant="67" id="ftU-Li-cIb"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="bottom" secondItem="lOf-qx-yjX" secondAttribute="bottom" constant="16" id="gt6-zZ-APD"/>
+                            <constraint firstItem="MdJ-KU-6EI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WWc-N0-Nph" secondAttribute="trailing" id="hdA-aq-0zn"/>
                             <constraint firstItem="yoy-Xx-l2v" firstAttribute="leading" secondItem="ONC-wB-QaB" secondAttribute="leading" constant="41" id="hxd-Og-yja"/>
+                            <constraint firstItem="WWc-N0-Nph" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="31" id="ifX-eA-9bm"/>
                             <constraint firstItem="BJz-0d-AeJ" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leading" id="jin-Np-f1Z"/>
                             <constraint firstItem="BJz-0d-AeJ" firstAttribute="trailing" secondItem="ONC-wB-QaB" secondAttribute="trailing" id="m40-VH-PPq"/>
                             <constraint firstItem="BJz-0d-AeJ" firstAttribute="top" secondItem="nx6-Cd-cWU" secondAttribute="top" id="s8E-SD-9ID"/>
+                            <constraint firstItem="WWc-N0-Nph" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yoy-Xx-l2v" secondAttribute="trailing" constant="8" symbolic="YES" id="uKr-xZ-9tT"/>
                             <constraint firstItem="uUN-g4-1Qm" firstAttribute="top" secondItem="nx6-Cd-cWU" secondAttribute="top" constant="356" id="vOK-m8-T1n"/>
                         </constraints>
                     </view>
@@ -152,8 +181,11 @@
                         <outlet property="arView" destination="BJz-0d-AeJ" id="HrI-lU-UIR"/>
                         <outlet property="debugLabel" destination="uUN-g4-1Qm" id="QoT-Xt-tHo"/>
                         <outlet property="deleteMaps" destination="yoy-Xx-l2v" id="mU7-OS-QVq"/>
+                        <outlet property="editWorld" destination="WWc-N0-Nph" id="3xK-n5-oqs"/>
                         <outlet property="newAnimal" destination="p7Q-MM-cfX" id="Khl-Nb-ftV"/>
                         <outlet property="newView" destination="BJz-0d-AeJ" id="J7V-jB-VLs"/>
+                        <outlet property="resetWorld" destination="MdJ-KU-6EI" id="ULK-pU-phd"/>
+                        <outlet property="viewWorld" destination="mUZ-qN-MUB" id="ObD-Nh-gW5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,31 +8,21 @@
 import UIKit
 import RealityKit
 import ARKit
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
+class ViewController: UIViewController {
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.pickerData.count
-    }
-    func pickerView(_pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-    {
-        return self.pickerData[row]
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        <#code#>
-    }
     
     
     @IBOutlet var arView: ARView!
     
+    @IBOutlet weak var resetWorld: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var LoadWorld: UIButton!
     @IBOutlet weak var newView: ARView!
     @IBOutlet weak var animalPicker: UIPickerView!
     @IBOutlet weak var SaveWorld: UIButton!
     @IBOutlet weak var newAnimal: UIButton!
+    @IBOutlet weak var viewWorld: UIButton!
+    @IBOutlet weak var editWorld: UIButton!
     var pickerData: [String] = [String]()
     var currentIndex = 0
     var entries : [ZooLookup] = []
@@ -78,11 +68,35 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
     }
     
+    @IBAction func viewWorldAction(_sender: Any) {
+        SaveWorld.isHidden = true
+        deleteMaps.isHidden = true
+        LoadWorld.isHidden = true
+        animalPicker.isHidden = true
+        newAnimal.isHidden = true
+        viewWorld.isHidden = true
+        resetWorld.isHidden = true
+        editWorld.isHidden = false
+    }
+    
+    @IBAction func editWorldAction(_sender: Any) {
+        SaveWorld.isHidden = false
+        deleteMaps.isHidden = false
+        LoadWorld.isHidden = false
+        newAnimal.isHidden = false
+        viewWorld.isHidden = false
+        resetWorld.isHidden = false
+        editWorld.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.animalPicker.isHidden = true
         self.animalPicker.delegate = self
         self.animalPicker.dataSource = self
+        editWorld.isHidden = true
+        viewWorld.isHidden = false
+        debugLabel.isHidden = true
         print(worldMapURL)
         if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
             info = defualts.array(forKey:"Maps") as! [Data]
@@ -261,4 +275,22 @@ extension ViewController: ARSessionDelegate {
             }
         }
     }
+}
+
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.pickerData.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return self.pickerData[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.animal = self.pickerData[row]
+    }
+    
 }
