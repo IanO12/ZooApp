@@ -9,28 +9,26 @@ import UIKit
 import RealityKit
 import ARKit
 class ViewController: UIViewController {
-    
-    
-    
     @IBOutlet var arView: ARView!
     
     @IBOutlet weak var resetWorld: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
-    @IBOutlet weak var LoadWorld: UIButton!
-    @IBOutlet weak var newView: ARView!
-    @IBOutlet weak var animalPicker: UIPickerView!
+    @IBOutlet weak var loadWorld: UIButton!
     @IBOutlet weak var SaveWorld: UIButton!
     @IBOutlet weak var newAnimal: UIButton!
     @IBOutlet weak var viewWorld: UIButton!
-    @IBOutlet weak var editWorld: UIButton!
+    @IBOutlet weak var newView: ARView!
+    @IBOutlet weak var animalPicker: UIPickerView!
+    
     var pickerData: [String] = [String]()
     var currentIndex = 0
     var entries : [ZooLookup] = []
     var info : [Data] = []
     var infoName : [String] = []
     var defualts = UserDefaults.standard
-    //var chocieAnimal = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
-    var animal = "gorilla"
+    
+    var editMode : Bool = true
+    var animal = "alligator"
     var worldMapURL: URL = {
         do {
             return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -47,61 +45,31 @@ class ViewController: UIViewController {
         configuration.environmentTexturing = .automatic
         return configuration
     }
-
-    @IBOutlet weak var deleteMaps: UIButton!
-    @IBAction func deleteMapsAction(_ sender: Any) {
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-        entries = []
-        debugLabel.text = String(info.count)
-    }
-    
-    @IBAction func pickAnimalAction(_sender: Any) {
-        if animalPicker.isHidden{
-            self.animalPicker.isHidden = false
-            self.pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
-            self.animalPicker.reloadAllComponents()
-        }else{
-            self.animalPicker.isHidden = true
-        }
-        
-    }
     
     @IBAction func viewWorldAction(_sender: Any) {
-        SaveWorld.isHidden = true
-        deleteMaps.isHidden = true
-        LoadWorld.isHidden = true
-        animalPicker.isHidden = true
-        newAnimal.isHidden = true
-        viewWorld.isHidden = true
-        resetWorld.isHidden = true
-        editWorld.isHidden = false
-    }
-    
-    @IBAction func editWorldAction(_sender: Any) {
-        SaveWorld.isHidden = false
-        deleteMaps.isHidden = false
-        LoadWorld.isHidden = false
-        newAnimal.isHidden = false
-        viewWorld.isHidden = false
-        resetWorld.isHidden = false
-        editWorld.isHidden = true
+        SaveWorld.isHidden = editMode
+        animalPicker.isHidden = editMode
+        resetWorld.isHidden = editMode
+        loadWorld.isHidden = editMode
+        
+        editMode = !editMode
+        if editMode{
+            viewWorld.setTitle("View", for: .normal)
+        }else{
+            viewWorld.setTitle("Edit", for: .normal)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.animalPicker.isHidden = true
         self.animalPicker.delegate = self
         self.animalPicker.dataSource = self
-        editWorld.isHidden = true
         viewWorld.isHidden = false
-        debugLabel.isHidden = true
         print(worldMapURL)
         if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
             info = defualts.array(forKey:"Maps") as! [Data]
             infoName = defualts.array(forKey:"Names") as! [String]
-            debugLabel.text = String(info.count)
+            debugLabel.text = String("info count \(info.count) infoName count \(infoName.count)")
             if info.count != infoName.count{
                 print("ERROR DATA COUNT != NAME COUNT")
             }
@@ -114,7 +82,9 @@ class ViewController: UIViewController {
                 }
             }
         }
-
+        self.pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
+        self.animalPicker.backgroundColor = .clear
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -125,6 +95,7 @@ class ViewController: UIViewController {
         setupARView()
         
         newView.addGestureRecognizer(UITapGestureRecognizer(target:self,action: #selector(handleTap(recognizer:))))
+        
     }
     
     func setupARView(){
@@ -140,6 +111,12 @@ class ViewController: UIViewController {
     func handleTap(recognizer: UITapGestureRecognizer){
         let location = recognizer.location(in: newView)
         let results = newView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
+        if let entity = newView.entity(at: location){
+            print("THIS WOOOOOOORKS")
+            if let anchorEntity = entity.anchor{
+                anchorEntity.removeFromParent()
+            }
+        }
         if let firstResult = results.first{
             let anchor = ARAnchor(name: animal, transform: firstResult.worldTransform)
             print("ADDED ANCHOR")
@@ -148,17 +125,16 @@ class ViewController: UIViewController {
             print("Object Placement Failed")
         }
     }
-    @objc func hidePicker(sender: UIGestureRecognizer) {
-        self.animalPicker.isHidden = true
-    }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){
-        let url = URL(fileURLWithPath: Bundle.main.path(forResource:animal, ofType: "usdz")!)
-        if let entity = try? Entity.load(contentsOf: url){
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource:entityName, ofType: "usdz")!)
+        if let entity = try? Entity.loadModel(contentsOf: url){
             let anchorEntity = AnchorEntity(anchor: anchor)
             anchorEntity.addChild(entity)
             newView.scene.addAnchor(anchorEntity)
             entity.playAnimation(entity.availableAnimations[0].repeat())
+            entity.generateCollisionShapes(recursive: true)
+            newView.installGestures([.rotation,.translation],for: entity)
         }else{
             print("Couldn't find model")
         }
@@ -187,42 +163,38 @@ class ViewController: UIViewController {
     func saveWorldMap(){
         newView.session.getCurrentWorldMap { (worldMap, error) in
             guard let worldMap = worldMap else {
-                //self.showAlert(title: "No Map", message: error!.localizedDescription); return
                 print("No map")
                 return
             }
              do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: worldMap, requiringSecureCoding: true)
-                 try data.write(to: self.worldMapURL, options: [.atomic])
-                 self.info.append(data)
-                 self.infoName.append(self.name)
+                 var hasEntry = false
+                 if self.entries.count > 0{
+                     for i in 0...self.entries.count - 1{
+                         if self.entries[i].name == self.name{
+                             self.entries[i].data = data
+                             self.info[i] = data
+                             self.infoName[i] = self.name
+                             hasEntry = true
+                         }
+                     }
+                 }
+                 if !hasEntry{
+                     self.entries.append(ZooLookup(name:self.name, data: data))
+                     self.info.append(data)
+                     self.infoName.append(self.name)
+                 }
                  self.defualts.set(self.info, forKey: "Maps")
                  self.defualts.set(self.infoName, forKey: "Names")
-                 self.entries.append(ZooLookup(name:self.name, data: data))
                  self.debugLabel.text = String(self.info.count)
-                //self.showAlert(message: "Map Saved")
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
         }
     }
-    func loadWorldMap(from url: URL) throws -> ARWorldMap {
-        let mapData = try Data(contentsOf: url)
-        guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: mapData)
-        else { throw ARError(.invalidWorldMap) }
-        let configuration = self.defaultConfiguration
-        configuration.initialWorldMap = worldMap
-        newView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        return worldMap
-    }
-    var mapDataFromFile: Data? {
-        return try? Data(contentsOf: worldMapURL)
-    }
-    @IBAction func loadButtonAction(_ sender: Any) {
-
-    }
     
     func loadARView(data: Data, i: Int){
+        newView.scene.anchors.removeAll()
         let worldMap: ARWorldMap = {
             guard let data = try? data
                         else { fatalError("Map data should already be verified to exist before Load button is enabled.") }
@@ -292,5 +264,4 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.animal = self.pickerData[row]
     }
-    
 }
