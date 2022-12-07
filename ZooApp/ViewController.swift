@@ -29,14 +29,6 @@ class ViewController: UIViewController {
     
     var editMode : Bool = true
     var animal = "alligator"
-    var worldMapURL: URL = {
-        do {
-            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                .appendingPathComponent("worldMapURL")
-        } catch {
-            fatalError("Error getting world map URL from document directory.")
-        }
-    }()
 
     var name: String = ""
     var defaultConfiguration: ARWorldTrackingConfiguration {
@@ -65,7 +57,6 @@ class ViewController: UIViewController {
         self.animalPicker.delegate = self
         self.animalPicker.dataSource = self
         viewWorld.isHidden = false
-        print(worldMapURL)
         if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
             info = defualts.array(forKey:"Maps") as! [Data]
             infoName = defualts.array(forKey:"Names") as! [String]
@@ -85,17 +76,9 @@ class ViewController: UIViewController {
         self.pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
         self.animalPicker.backgroundColor = .clear
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         newView.session.delegate = self
-        
         setupARView()
-        
         newView.addGestureRecognizer(UITapGestureRecognizer(target:self,action: #selector(handleTap(recognizer:))))
-        
     }
     
     func setupARView(){
@@ -111,15 +94,9 @@ class ViewController: UIViewController {
     func handleTap(recognizer: UITapGestureRecognizer){
         let location = recognizer.location(in: newView)
         let results = newView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
-        if let entity = newView.entity(at: location){
-            print("THIS WOOOOOOORKS")
-            if let anchorEntity = entity.anchor{
-                anchorEntity.removeFromParent()
-            }
-        }
         if let firstResult = results.first{
             let anchor = ARAnchor(name: animal, transform: firstResult.worldTransform)
-            print("ADDED ANCHOR")
+//            print("ADDED ANCHOR")
             newView.session.add(anchor: anchor)
         } else{
             print("Object Placement Failed")
@@ -133,8 +110,6 @@ class ViewController: UIViewController {
             anchorEntity.addChild(entity)
             newView.scene.addAnchor(anchorEntity)
             entity.playAnimation(entity.availableAnimations[0].repeat())
-            entity.generateCollisionShapes(recursive: true)
-            newView.installGestures([.rotation,.translation],for: entity)
         }else{
             print("Couldn't find model")
         }
