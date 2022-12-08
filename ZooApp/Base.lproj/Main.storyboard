@@ -18,7 +18,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <rect key="frame" x="0.0" y="121" width="414" height="44"/>
+=======
+                            <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
+>>>>>>> parent of 9669647 (More Misc Things)
 =======
                             <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
 >>>>>>> parent of 9669647 (More Misc Things)
