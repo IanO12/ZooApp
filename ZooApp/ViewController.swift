@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ZooApp
 //
-//  Created by Ian J. O'Strander on 11/16/22.
+//  Created by Ian J. O'Strander and Jaxon Goggins on 11/16/22.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var resetWorld: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var loadWorld: UIButton!
-    @IBOutlet weak var SaveWorld: UIButton!
+    @IBOutlet weak var saveWorld: UIButton!
     @IBOutlet weak var newAnimal: UIButton!
     @IBOutlet weak var viewWorld: UIButton!
     @IBOutlet weak var newView: ARView!
@@ -23,8 +23,8 @@ class ViewController: UIViewController {
     var pickerData: [String] = [String]()
     var currentIndex = 0
     var entries : [ZooLookup] = []
-    var info : [Data] = []
-    var infoName : [String] = []
+    var mapData : [Data] = []
+    var nameData : [String] = []
     var defualts = UserDefaults.standard
     
     var editMode : Bool = true
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewWorldAction(_sender: Any) {
-        SaveWorld.isHidden = editMode
+        saveWorld.isHidden = editMode
         animalPicker.isHidden = editMode
         resetWorld.isHidden = editMode
         loadWorld.isHidden = editMode
@@ -54,27 +54,28 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.animalPicker.delegate = self
-        self.animalPicker.dataSource = self
+        animalPicker.delegate = self
+        animalPicker.dataSource = self
         viewWorld.isHidden = false
+        debugLabel.isHidden = true
         if(defualts.array(forKey: "Maps") != nil && defualts.array(forKey:"Names") != nil){
-            info = defualts.array(forKey:"Maps") as! [Data]
-            infoName = defualts.array(forKey:"Names") as! [String]
-            debugLabel.text = String("info count \(info.count) infoName count \(infoName.count)")
-            if info.count != infoName.count{
+            mapData = defualts.array(forKey:"Maps") as! [Data]
+            nameData = defualts.array(forKey:"Names") as! [String]
+            debugLabel.text = String("info count \(mapData.count) infoName count \(nameData.count)")
+            if mapData.count != nameData.count{
                 print("ERROR DATA COUNT != NAME COUNT")
             }
-            else if info.count < 1{
+            else if mapData.count < 1{
                 print("LIST TOO SMALL")
             }else{
-                for i in 0...info.count - 1{
+                for i in 0...mapData.count - 1{
                     print(i)
-                    entries.append(ZooLookup(name:infoName[i], data: info[i]))
+                    entries.append(ZooLookup(name:nameData[i], data: mapData[i]))
                 }
             }
         }
-        self.pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
-        self.animalPicker.backgroundColor = .clear
+        pickerData = ["alligator", "elephant", "gorilla", "jaguar", "kangaroo", "snake", "tiger", "zebra", "emu"]
+        animalPicker.backgroundColor = .clear
         
         newView.session.delegate = self
         setupARView()
@@ -93,6 +94,7 @@ class ViewController: UIViewController {
     @objc
     func handleTap(recognizer: UITapGestureRecognizer){
         let location = recognizer.location(in: newView)
+        print(location)
         let results = newView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.first{
             let anchor = ARAnchor(name: animal, transform: firstResult.worldTransform)
@@ -148,20 +150,20 @@ class ViewController: UIViewController {
                      for i in 0...self.entries.count - 1{
                          if self.entries[i].name == self.name{
                              self.entries[i].data = data
-                             self.info[i] = data
-                             self.infoName[i] = self.name
+                             self.mapData[i] = data
+                             self.nameData[i] = self.name
                              hasEntry = true
                          }
                      }
                  }
                  if !hasEntry{
                      self.entries.append(ZooLookup(name:self.name, data: data))
-                     self.info.append(data)
-                     self.infoName.append(self.name)
+                     self.mapData.append(data)
+                     self.nameData.append(self.name)
                  }
-                 self.defualts.set(self.info, forKey: "Maps")
-                 self.defualts.set(self.infoName, forKey: "Names")
-                 self.debugLabel.text = String(self.info.count)
+                 self.defualts.set(self.mapData, forKey: "Maps")
+                 self.defualts.set(self.nameData, forKey: "Names")
+                 self.debugLabel.text = String(self.mapData.count)
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
@@ -205,11 +207,11 @@ extension ViewController : HistoryTableViewControllerDelegate{
         loadARView(data: entry.data, i: index)
     }
     func deleteData(index: Int){
-        info.remove(at: index)
-        infoName.remove(at: index)
+        mapData.remove(at: index)
+        nameData.remove(at: index)
         entries.remove(at:index)
-        defualts.set(self.info, forKey: "Maps")
-        defualts.set(self.infoName, forKey: "Names")
+        defualts.set(self.mapData, forKey: "Maps")
+        defualts.set(self.nameData, forKey: "Names")
     }
 }
 
