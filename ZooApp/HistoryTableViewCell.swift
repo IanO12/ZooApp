@@ -2,7 +2,7 @@
 //  HistoryTableViewCell.swift
 //  ZooApp
 //
-//  Created by Ian O'Strander and Jaxon Goggins on 11/20/22.
+//  Created by Krin Beach on 11/20/22.
 //
 
 import Foundation

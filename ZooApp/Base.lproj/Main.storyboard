@@ -17,7 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
+<<<<<<< HEAD
                             <rect key="frame" x="0.0" y="121" width="414" height="44"/>
+=======
+                            <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
+>>>>>>> parent of 9669647 (More Misc Things)
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
@@ -70,6 +74,12 @@
                             <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJz-0d-AeJ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUN-g4-1Qm">
+                                <rect key="frame" x="20" y="658" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pickerView contentMode="scaleToFill" restorationIdentifier="animalPicker" translatesAutoresizingMaskIntoConstraints="NO" id="4yZ-F1-0Y1">
                                 <rect key="frame" x="0.0" y="714" width="414" height="162"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -109,17 +119,11 @@
                                     <segue destination="tsm-26-EEa" kind="presentation" identifier="historySegue" id="Z9G-5M-vTN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0f0-fd-Uh6">
-                                <rect key="frame" x="44" y="438" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ONC-wB-QaB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="uUN-g4-1Qm" firstAttribute="leading" secondItem="ONC-wB-QaB" secondAttribute="leading" constant="20" id="Dox-ie-vJ1"/>
                             <constraint firstAttribute="trailing" secondItem="4yZ-F1-0Y1" secondAttribute="trailing" id="EOR-CK-J5N"/>
                             <constraint firstItem="4yZ-F1-0Y1" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leadingMargin" constant="-28" id="FYx-Qy-DMD"/>
                             <constraint firstItem="lOf-qx-yjX" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="TIe-CA-JIS"/>
@@ -128,6 +132,7 @@
                             <constraint firstAttribute="bottom" secondItem="BJz-0d-AeJ" secondAttribute="bottom" id="WD6-Cl-sJ4"/>
                             <constraint firstItem="MdJ-KU-6EI" firstAttribute="trailing" secondItem="ONC-wB-QaB" secondAttribute="trailing" constant="20" id="XGG-Ad-8Jd"/>
                             <constraint firstItem="Nae-r1-UVz" firstAttribute="top" secondItem="ONC-wB-QaB" secondAttribute="top" constant="10" id="aWc-xX-vL6"/>
+                            <constraint firstItem="4yZ-F1-0Y1" firstAttribute="top" secondItem="uUN-g4-1Qm" secondAttribute="bottom" constant="35.5" id="cD1-X0-VzJ"/>
                             <constraint firstItem="Nae-r1-UVz" firstAttribute="leading" secondItem="lOf-qx-yjX" secondAttribute="trailing" constant="5" id="gCk-lL-Vn1"/>
                             <constraint firstItem="ONC-wB-QaB" firstAttribute="trailing" secondItem="MdJ-KU-6EI" secondAttribute="trailing" constant="10" id="j0w-1D-XJ9"/>
                             <constraint firstItem="BJz-0d-AeJ" firstAttribute="leading" secondItem="nx6-Cd-cWU" secondAttribute="leading" id="jin-Np-f1Z"/>
@@ -141,13 +146,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="SaveWorld" destination="lOf-qx-yjX" id="X6H-mt-XJR"/>
                         <outlet property="animalPicker" destination="4yZ-F1-0Y1" id="Kk0-w2-FIO"/>
                         <outlet property="arView" destination="BJz-0d-AeJ" id="HrI-lU-UIR"/>
-                        <outlet property="debugLabel" destination="0f0-fd-Uh6" id="YvN-3h-Nd0"/>
+                        <outlet property="debugLabel" destination="uUN-g4-1Qm" id="QoT-Xt-tHo"/>
                         <outlet property="loadWorld" destination="Nae-r1-UVz" id="JAi-PP-R70"/>
                         <outlet property="newView" destination="BJz-0d-AeJ" id="J7V-jB-VLs"/>
                         <outlet property="resetWorld" destination="MdJ-KU-6EI" id="ULK-pU-phd"/>
-                        <outlet property="saveWorld" destination="lOf-qx-yjX" id="X6H-mt-XJR"/>
                         <outlet property="viewWorld" destination="mUZ-qN-MUB" id="ObD-Nh-gW5"/>
                     </connections>
                 </viewController>
