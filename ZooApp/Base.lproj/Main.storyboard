@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <navigationBar key="tableFooterView" contentMode="scaleToFill" id="nMu-xr-dgG">
-                            <rect key="frame" x="0.0" y="122" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="121" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellId" id="f9C-9l-1Xy" customClass="HistoryTableViewCell" customModule="ZooApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9C-9l-1Xy" id="3xd-b7-OxH">
-                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-KN-lce">
-                                            <rect key="frame" x="20" y="11" width="355.5" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="355.5" height="21"/>
                                             <accessibility key="accessibilityConfiguration" identifier="cellContent"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
